@@ -20,7 +20,7 @@ public class CustomerService {
 
     private final CustomerRepository repository;
 
-    // ------------------- React App için (maskeli DTO) -------------------
+    // React maskelii
     public CustomerDTO save(CustomerDTO dto) {
         List<Customer> existingList = repository.findByPhone(dto.getPhone());
         if (!existingList.isEmpty()) {
@@ -91,7 +91,7 @@ public class CustomerService {
         return ent;
     }
 
-    // ------------------- Admin Paneli için (maskesiz) -------------------
+    //adminiçin
     public List<Customer> getAllEntities() {
         return repository.findAll();
     }
@@ -100,7 +100,7 @@ public class CustomerService {
         return repository.findById(id).orElse(null);
     }
 
-    // ------------------- Yardımcı Metodlar -------------------
+    // admin için
     private String maskName(String name) {
         if (name == null || name.isEmpty()) return "";
         return name.charAt(0) + "*".repeat(Math.max(name.length() - 1, 4));

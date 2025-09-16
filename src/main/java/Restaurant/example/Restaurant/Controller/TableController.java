@@ -18,13 +18,11 @@ public class TableController {
 
     private final TableService tableService;
 
-    // Tüm masaları listele (herkes erişebilir)
     @GetMapping
     public List<TableDTO> getAllTables() {
         return tableService.getAllTables();
     }
 
-    // ID ile masa getir (herkes erişebilir)
     @GetMapping("/{id}")
     public ResponseEntity<TableDTO> getTableById(@PathVariable Long id) {
         try {
@@ -34,14 +32,12 @@ public class TableController {
         }
     }
 
-    // Yeni masa ekle (sadece admin)
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public TableDTO addTable(@RequestBody TableDTO dto) {
         return tableService.addTable(dto);
     }
 
-    // Masa sil (sadece admin)
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteTable(@PathVariable Long id) {
@@ -53,7 +49,6 @@ public class TableController {
         }
     }
     
-    // Masa güncelle (sadece admin)
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<TableDTO> updateTable(@PathVariable Long id, @RequestBody TableDTO dto) {
