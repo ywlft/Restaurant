@@ -18,7 +18,7 @@ public class TableService {
 
     private final TableEntityRepository tableRepository;
 
-    // Tüm masaları listele
+    
     public List<TableDTO> getAllTables() {
         return tableRepository.findAll()
                 .stream()
@@ -26,33 +26,33 @@ public class TableService {
                 .collect(Collectors.toList());
     }
 
-    // ID ile masa getir
+    
     public TableDTO getTableById(Long id) {
         TableEntity t = tableRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Masa bulunamadı: " + id));
         return new TableDTO(t.getId(), t.getTableNumber(), t.getCapacity(),t.isEmpty());
     }
 
-    // Yeni masa ekle
+ 
     public TableDTO addTable(TableDTO dto) {
         TableEntity t = new TableEntity(null, dto.getTableNumber(), dto.getCapacity(),dto.isEmpty());
         TableEntity saved = tableRepository.save(t);
         return new TableDTO(saved.getId(), saved.getTableNumber(), saved.getCapacity(),saved.isEmpty());
     }
 
-    // Masa sil
+
     public void deleteTable(Long id) {
         if (!tableRepository.existsById(id)) {
             throw new RuntimeException("Masa bulunamadı: " + id);
         }
         tableRepository.deleteById(id);
     }
- // Masa güncelle
+
     public TableDTO updateTable(Long id, TableDTO dto) {
         TableEntity table = tableRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Masa bulunamadı: " + id));
 
-        // Güncellenebilir alanlar
+     
         table.setTableNumber(dto.getTableNumber());
         table.setCapacity(dto.getCapacity());
         table.setEmpty(dto.isEmpty());
